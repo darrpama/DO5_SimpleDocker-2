@@ -1,7 +1,8 @@
 # Simple Docker
 
-Введение в докер. Разработка простого докер образа для собственного сервера.
+Introduction to docker. Developing a simple docker image for your own server.
 
+The russian version of the task can be found in the repository.
 
 ## Contents
 
@@ -11,210 +12,207 @@
     2.2. [Docker](#docker) \
     2.3. [Dockle](#dockle)
 3. [Chapter III](#chapter-iii) \
-    3.1. [Готовый докер](#part-1-готовый-докер) \
-    3.2. [Операции с контейнером](#part-2-операции-с-контейнером) \
-    3.3. [Мини веб-сервер](#part-3-мини-веб-сервер) \
-    3.4. [Свой докер](#part-4-свой-докер) \
-    3.5. [Инструмент Dockle](#part-5-инструмент-dockle) \
-    3.6. [Базовый Docker Compose](#part-6-базовый-docker-compose)
+    3.1. [Ready-made docker](#part-1-ready-made-docker) \
+    3.2. [Operations with container](#part-2-operations-with-container) \
+    3.3. [Mini web server](#part-3-mini-web-server) \
+    3.4. [Your own docker](#part-4-your-own-docker) \
+    3.5. [Dockle](#part-5-dockle) \
+    3.6. [Basic Docker Compose](#part-6-basic-docker-compose)
 
 
 ## Chapter I
 
-Планета Земля, Атлантический океан, Корабль Её Величества "Hood", курс на город Лондон, Великобритания, наши дни.
+Planet Earth, Atlantic Ocean, Her Majesty's Ship "Hood", heading to London, UK, nowadays.
 
-Вам никогда не нравилось переезжать. Много суматохи, мало дела.
-Но что поделаешь, на туманном Альбионе удалось найти отличную вакансию, чтобы углубиться в мир DevOps’а.
-И вы не из тех, кто позволяет мелким трудностям испортить планы.
+You never liked moving. A lot of fuss, little action. But you managed to find a great job to delve into DevOps world in Foggy Albion.
+And you're not one to let minor difficulties ruin your plans.
 
-Пока из-за окна каюты слышится шум морских волн, и вас мирно покачивает на волнах, вы вспоминаете ваш любимый роман о море – “Моби Дик”.
-И хотя течение сюжета в романе далеко не прямолинейно, он переполнен лирическими отступлениями и философскими размышлениям,
-все же вы, как и любой другой, в первую очередь ассоциируете эту книгу именно с самим Моби Диком – белым китом.
+From your cabin window you hear the sound of the waves, the ship is peacefully rocking on them and you remember your favorite novel about the sea - "Moby Dick".
+Although the flow of the plot is far from straightforward, with many lyrical digressions and philosophical musings, you, like everyone else, associate this book primarily with Moby Dick himself - the white whale.
 
-“Хм... Белый кит...” – тут вы вспоминаете, что во время длительного путешествия собирались не терять время зря и познакомиться с докером.
+"Hmm... White whale..." - here you remember that during the long journey you were going to work on docker.
 
 
 ## Chapter II
 
 ### **nginx**
 
-**nginx** (произносится как "engine-x") - это обратный прокси-сервер с открытым исходным кодом для протоколов HTTP, HTTPS и т.д.
-**nginx** также используется, как балансировщик нагрузки, веб-сервер и для кеширования HTTP.
-В проекте **nginx** уделяется особое внимание высокому параллелизму, высокой производительности и низкому использованию памяти.
+**nginx** (pronounced "engine-x") is an open-source reverse proxy server for HTTP, HTTPS, etc. **nginx** is also used as a load balancer, web server and for HTTP caching. The **nginx** project focuses on high parallelism, high performance and low memory usage.
 
-У **nginx** есть один главный и несколько рабочих процессов.
-Основная задача главного процесса — чтение и проверка конфигурации и управление рабочими процессами.
-Рабочие процессы выполняют фактическую обработку запросов.
 
-Как работают **nginx** и его модули, определяется в конфигурационном файле. По умолчанию, конфигурационный файл называется *nginx.conf*
+**nginx** has one main process and several worker processes.
+The primary task of the main process is to read and check the configuration and manage the worker processes.
+The worker processes perform the actual processing of the requests.
+
+How **nginx** and its modules work is defined in the configuration file. By default, the configuration file is called *nginx.conf*
 
 ### **Docker**
 
-Контейнер – новый "исполняемый файл", включающий в себя все необходимые продукту зависимости. \
-Главное преимущество контейнеризации – изоляция зависимостей и единая простая точка запуска ПО.
+A container is a new "executable file" that includes all the dependencies the product needs.
 
-Основные понятия:
-- Докер образ – "упаковка" для приложения и зависимостей (в том числе системных).
-- Контейнер – экземпляр образа, то есть "оживший" образ.
+The main advantage of containerisation is the isolation of dependencies and a single, simple software start-up point.
 
-**Docker** — это платформа, которая предназначена для разработки, развёртывания и запуска приложений в контейнерах.
-**Docker** – «де-факто» стандарт инструмента контейнеризации в индустрии, но он не является первым или последним среди технологий контейнеризации.
+Basic terms:
+- Docker image - the "package" for the application and dependencies (including system ones).
+- Container - an instance of an image, i.e. a 'alive' image.
 
-Предшественниками контейнеров **Docker** были виртуальные машины.
-Виртуальная машина, как и контейнер, изолирует приложение и его зависимости от внешней среды.
-Однако контейнеры **Docker** обладают преимуществами перед виртуальными машинами.
-Так, они потребляют меньше ресурсов, их очень легко переносить, они быстрее запускаются и приходят в работоспособное состояние.
+**Docker** is a platform that is designed to develop, deploy and run applications in containers.
+**Docker** is the 'de-facto' standard containerisation tool in the industry, but it is not the first or last among containerisation technologies.
 
-Докер образ состоит из слоев. Каждый слой описывает какое-то изменение, которое должно быть выполнено с данными на запущенном контейнере.
-Структура связей между слоями — иерархическая. Имеется базовый слой, на который «накладываются» остальные слои.
-Для создания образа используется *Dockerfile*. Каждая инструкция в нем создает новый слой.
+The forerunners of **Docker** containers were virtual machines.
+A virtual machine, like a container, isolates the application and its dependencies from the outside environment.
+However, **Docker** containers have advantages over virtual machines.
+For example, they are very easy to port, consume fewer resources, start and run faster.
+
+A docker image consists of layers. Each layer describes some change to be performed to the data on the running container.
+The structure of links between layers is hierarchical. There is a base layer on which the other layers are "overlaid".
+The *Dockerfile* is used to create an image. Each instruction in it creates a new layer.
 
 ### **Dockle**
 
-**Dockle** — это инструмент для проверки безопасности образов контейнеров, который можно использовать для поиска уязвимостей.
+**Dockle** is a container image security checking tool that can be used to find vulnerabilities.
 
-Основные функции и преимущества **Dockle**:
-- поиск уязвимостей в образах,
-- помощь в создании правильного Dockerfile,
-- простота в использовании, нужно указать только имя образа,
-- поддержка *CIS Benchmarks*.
+Key features and benefits of **Dockle**:
+- searches for vulnerabilities in images
+- helps in creating a proper Dockerfile
+- easy to use, you only need to specify the image name
+- support for *CIS Benchmarks*.
 
 ### **Docker Compose**
 
-Docker Compose — это инструментальное средство, которое предназначено для решения задач, связанных с развёртыванием проектов.
-Docker Compose может пригодиться, если для обеспечения функционирования проекта используется несколько сервисов.
+Docker Compose is a tool for handling tasks related to projects deployment.
+Docker Compose can be helpful if several services are used to keep the project running.
 
-Docker Compose используется для одновременного управления несколькими контейнерами, входящими в состав приложения.
-Этот инструмент предлагает те же возможности, что и Docker, но позволяет работать с более сложными распределенными приложениями, например микросервисными.
+Docker Compose is used to simultaneously manage multiple containers that are part of an application.
+This tool offers the same features as Docker, but allows to work with more complex distributed applications, e.g. microservices.
 
 
 ## Chapter III
 
-В качестве результата работы по первым двум задачам должен быть предоставлен отчет.
-В каждой части задания указано, что должно быть помещено в отчёт, после её выполнения.
-Это могут быть ответы на вопросы, скриншоты и т.д.
+As a result of the work you should provide a report on the first two tasks. Each part of the task describe what should be added to the report once it has been completed. This can be answers to questions, screenshots, etc.
 
-В качестве результата работы по третьей задаче должны быть предоставлены исходные файлы для запуска веб-сервера.
+As a result of the third task you should provide source files for running the web server.
 
-В качестве результата работы по четвёртой и пятой задачам должны быть предоставлены докер образы.
+As a result of the fourth and fifth tasks you should provide docker images.
 
-В качестве результата работы по шестой задаче должен быть предоставлен файл *docker-compose.yml* и нужные для его запуска докер образы (если она не предоставлены ранее).
+As a result of the sixth task you should provide a *docker-compose.yml* file and the docker images needed to run it (if not provided earlier).
 
-- В репозиторий, в папку src, должен быть загружен отчёт с расширением .md.
-- В отчёте должны быть выделены все части задания, как заголовки 2-го уровня.
-- В рамках одной части задания всё, что помещается в отчёт, должно быть оформлено в виде списка.
-- Каждый скриншот в отчёте должен быть кратко подписан (что показано на скриншоте).
-- Все скриншоты обрезаны так, чтобы была видна только нужная часть экрана.
-- На одном скриншоте допускается отображение сразу нескольких пунктов задания, но они все должны быть описаны в подписи к скриншоту.
-- В репозиторий, в папку src/server, должны быть загружены исходные файлы для запуска веб-сервера из третьего задания.
-- В репозиторий, в папку src, должны быть загружены итоговые докер образы из четвёртого и пятого заданий.
-- В репозиторий, в папку src, должен быть загружен *docker-compose.yml* шестого задания.
-- Необходимо быть готовым показать решение вживую при необходимости.
+- A report with a .md extension must be uploaded to the repository, in the src folder.
+- All parts of the task should be highlighted in the report as level 2 headings.
+- Within one part of the task, everything that is added to the report must be in the form of the list.
+- Each screenshot in the report must be briefly captioned (what’s in the screenshot).
+- All screenshots must be cropped so that only the relevant part of the screen is shown.
+- It’s allowed to have several task points shown in one screenshot, but they must all be described in the caption.
+- Source files for running the web server from the third task should be uploaded to the repository, in the src/server folder.
+- Docker images from the fourth and fifth tasks should be uploaded to the repository, in the src folder.
 
-## Part 1. Готовый докер
+- *docker-compose.yml* from the sixth task should be uploaded to the repository, in the src folder.
+- Be prepared to demonstrate your work if necessary.
 
-В качестве конечной цели своей небольшой практики вы сразу выбрали написание докер образа для собственного веб сервера, а потому в начале вам нужно разобраться с уже готовым докер образом для сервера.
-Ваш выбор пал на довольно простой **nginx**.
+## Part 1. Ready-made docker
 
-**== Задание ==**
+As the final goal of your little practice you have immediately chosen to write a docker image for your own web server, so first you need to deal with a ready-made docker image for the server.
+You chose a pretty simple **nginx**.
 
-##### Взять официальный докер образ с **nginx** и выкачать его при помощи `docker pull`
-##### Проверить наличие докер образа через `docker images`
-##### Запустить докер образ через `docker run -d [image_id|repository]`
-##### Проверить, что образ запустился через `docker ps`
-##### Посмотреть информацию о контейнере через `docker inspect [container_id|container_name]`
-##### По выводу команды определить и поместить в отчёт размер контейнера, список замапленных портов и ip контейнера
-##### Остановить докер образ через `docker stop [container_id|container_name]`
-##### Проверить, что образ остановился через `docker ps`
-##### Запустить докер с замапленными портами 80 и 443 на локальную машину через команду *run*
-##### Проверить, что в браузере по адресу *localhost:80* доступна стартовая страница **nginx**
-##### Перезапустить докер образ через `docker restart [image_id|repository]`
-##### Проверить любым способом, что контейнер запустился
+**== Task==**
 
-- В отчёт поместить скрины:
-  - вызова и вывода всех использованных в этой части задания команд;
-  - стартовой страницы **nginx** по адресу *localhost:80* (адрес должен быть виден).
+##### Take the official docker image from **nginx** and download it using `docker pull`.
+##### Check for the docker image with `docker images`
+##### Run docker image with `docker run -d [image_id|repository]`
+##### Check that the image is running with `docker ps`
+##### View container information with `docker inspect [container_id|container_name]`
+##### From the command output define and write in the report the container size, list of mapped ports and container ip
+##### Stop docker image with `docker stop [container_id|container_name]`
+##### Check that the image has stopped with `docker ps`
+##### Run docker with mapped ports 80 and 443 on the local machine with *run* command
+##### Check that the **nginx** start page is available in the browser at *localhost:80*
+##### Restart docker image with `docker restart [image_id|repository]`
+##### Check in any way that the container is running
 
-## Part 2. Операции с контейнером
+- Add the following screenshots to the report:
+    - the call and output of all commands used in this part of the task;
+    - **nginx** start page at *localhost:80* (address must be shown).
 
-Докер образ и контейнер готовы. Теперь можно покопаться в конфигурации **nginx** и отобразить статус страницы.
+## Part 2. Operations with container
 
-**== Задание ==**
+Docker image and container are ready. Now we can look into **nginx** configuration and display page status.
 
-##### Прочитать конфигурационный файл *nginx.conf* внутри докер образа через команду *exec*
-##### Создать на локальной машине файл *nginx.conf*
-##### Настроить в нем по пути */status* отдачу страницы статуса сервера **nginx**
-##### Скопировать созданный файл *nginx.conf* внутрь докер образа через команду `docker cp`
-##### Перезапустить **nginx** внутри докер образа через команду *exec*
-##### Проверить, что по адресу *localhost:80/status* отдается страничка со статусом сервера **nginx**
-##### Экспортировать контейнер в файл *container.tar* через команду *export*
-##### Остановить контейнер
-##### Удалить образ через `docker rmi [image_id|repository]`, не удаляя перед этим контейнеры
-##### Импортировать контейнер обратно через команду *import*
-##### Запустить импортированный контейнер
+**== Task==**
 
-- В отчёт поместить скрины:
-  - вызова и вывода всех использованных в этой части задания команд;
-  - содержимое созданного файла *nginx.conf*;
-  - страницы со статусом сервера **nginx** по адресу *localhost:80/status*.
+##### Read the *nginx.conf* configuration file inside the docker image with the *exec* command
+##### Create a *nginx.conf* file on a local machine
+##### Configure it on the */status* path to return the **nginx** server status page
+##### Copy the created *nginx.conf* file inside the docker image using the `docker cp` command
+##### Restart **nginx** inside the docker image with *exec*
+##### Check that *localhost:80/status* returns the **nginx** server status page
+##### Export the container to a *container.tar* file with the *export* command
+##### Stop the container
+##### Delete the image with `docker rmi [image_id|repository]`without removing the container first
+##### Import the container back using the *import*command
+##### Run the imported container
 
-## Part 3. Мини веб-сервер
+- Add the following screenshots to the report:
+    - the call and output of all commands used in this part of the task;
+    - the contents of the created *nginx.conf* file;
+    - the **nginx** server status page at *localhost:80/status*.
 
-Настало время немного оторваться от докера, чтобы подготовиться к последнему этапу. Настало время написать свой сервер.
 
-**== Задание ==**
+## Part 3. Mini web server
 
-##### Написать мини сервер на **C** и **FastCgi**, который будет возвращать простейшую страничку с надписью `Hello World!`
-##### Запустить написанный мини сервер через *spawn-cgi* на порту 8080
-##### Проверить, что в браузере по *localhost:8080* отдается написанная вами страничка
-##### Написать свой *nginx.conf*, который будет проксировать все запросы с 81 порта на *127.0.0.1:8080*
-##### Положить файл *nginx.conf* по пути *./nginx/nginx.conf* (это понадобиться позже)
+It's time to take a little break from the docker to prepare for the last stage. It's time to write your own server.
 
-## Part 4. Свой докер
+**== Task==**
 
-Теперь всё готово. Можно приступать к написанию докер образа для созданного сервера.
+##### Write a mini server in **C** and **FastCgi** that will return a simple page saying `Hello World!`
+##### Run the written mini server via *spawn-cgi* on port 8080
+##### Check that browser on *localhost:8080* returns the page you wrote
+##### Write your own *nginx.conf* that will proxy all requests from port 81 to *127.0.0.1:8080*
+##### Put the *nginx.conf* file under *./nginx/nginx.conf* (you will need this later)
 
-**== Задание ==**
+## Part 4. Your own docker
 
-*При написании докер образа избегайте множественных вызовов команд RUN*
+Now everything is ready. You can start writing the docker image for the created server.
 
-#### Написать свой докер образ, который:
-##### 1) собирает исходники мини сервера на FastCgi из [Части 3](#part-3-мини-веб-сервер)
-##### 2) запускает его на 8080 порту
-##### 3) копирует внутрь образа написанный *./nginx/nginx.conf*
-##### 4) запускает **nginx**.
-_**nginx** можно установить внутрь докера самостоятельно, а можно воспользоваться готовым образом с **nginx**'ом, как базовым._
+**== Task==**
 
-##### Собрать написанный докер образ через `docker build` при этом указав имя и тег
-##### Проверить через `docker images`, что все собралось корректно
-##### Запустить собранный докер образ с маппингом 81 порта на 80 на локальной машине и маппингом папки *./nginx* внутрь контейнера по адресу, где лежат конфигурационные файлы **nginx**'а (см. [Часть 2](#part-2-операции-с-контейнером))
-##### Проверить, что по localhost:80 доступна страничка написанного мини сервера
-##### Дописать в *./nginx/nginx.conf* проксирование странички */status*, по которой надо отдавать статус сервера **nginx**
-##### Перезапустить докер образ
-*Если всё сделано верно, то, после сохранения файла и перезапуска контейнера, конфигурационный файл внутри докер образа должен обновиться самостоятельно без лишних действий*
-##### Проверить, что теперь по *localhost:80/status* отдается страничка со статусом **nginx**
+*When writing a docker image avoid multiple calls of RUN instructions*
 
-## Part 5. Инструмент **Dockle**
+#### Write your own docker image that:
+##### 1) builds mini server sources on FastCgi from [Part 3](#part-3-mini- web-server)
+##### 2) runs it on port 8080
+##### 3) copies inside the image written *./nginx/nginx.conf*
+##### 4) runs **nginx**.
+_**nginx** can be installed inside the docker itself, or you can use a ready-made image with **nginx** as base._
+##### Build the written docker image with `docker build`, specifying the name and tag
+##### Check with `docker images` that everything is built correctly
+##### Run the built docker image by mapping port 81 to 80 on the local machine and mapping the *./nginx* folder inside the container to the address where the **nginx** configuration files are located (see [Part 2](#part-2-operations-with-container))
+##### Check that the page of the written mini server is available on localhost:80
+##### Add proxying of */status* page in *./nginx/nginx.conf* to return the **nginx**server status
+##### Restart docker image
+*If everything is done correctly, after saving the file and restarting the container, the configuration file inside the docker image should update itself without any extra steps
+##### Check that *localhost:80/status* now returns a page with **nginx** status
 
-После написания контейнера никогда не будет лишним проверить его на безопасность.
+## Part 5. **Dockle**
 
-**== Задание ==**
+Once you've written the container, it's never a bad idea to check it for security.
 
-##### Просканировать контейнер из предыдущего задания через `dockle [container_id|container_name]`
-##### Исправить контейнер так, чтобы при проверке через **dockle** не было ошибок и предупреждений
+**== Task==**
 
-## Part 6. Базовый **Docker Compose**
+##### Check the container from the previous task with `dockle [container_id|container_name]`
+##### Fix the container so that there are no errors or warnings when checking with **dockle**
 
-Вот вы и закончили вашу разминку. А хотя погодите...
-Почему бы не поэкспериментировать с развёртыванием проекта, состоящего сразу из нескольких докер образов?
 
-**== Задание ==**
+## Part 6. Basic **Docker Compose**
 
-##### Написать файл *docker-compose.yml*, с помощью которого:
-##### 1) Поднять докер контейнер из [Части 5](#part-5-инструмент-dockle) _(он должен работать в локальной сети, т.е. не нужно использовать инструкцию **EXPOSE** и мапить порты на локальную машину)_
-##### 2) Поднять докер контейнер с **nginx**, который будет проксировать все запросы с 8080 порта на 81 порт первого контейнера
-##### Замапить 8080 порт второго контейнера на 80 порт локальной машины
+There, you've finished your warm-up. Wait a minute though...
+Why not try experimenting with deploying a project consisting of several docker images at once?
 
-##### Остановить все запущенные контейнеры
-##### Собрать и запустить проект с помощью команд `docker-compose build` и `docker-compose up`
-##### Проверить, что в браузере по *localhost:80* отдается написанная вами страничка, как и ранее
+**== Task==**
+
+##### Write a *docker-compose.yml* file, using which:
+##### 1) Start the docker container from [Part 5](#part-5-dockle) _(it must work on local network, i.e., you don't need to use **EXPOSE** instruction and map ports to local machine)_
+##### 2) Start the docker container with **nginx** which will proxy all requests from port 8080 to port 81 of the first container
+##### Map port 8080 of the second container to port 80 of the local machine
+##### Stop all running containers
+##### Build and run the project with the `docker-compose build` and `docker-compose up` commands
+##### Check that the browser returns the page you wrote on *localhost:80* as before

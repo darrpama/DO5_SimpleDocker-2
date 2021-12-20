@@ -1,17 +1,17 @@
-## Модуль ngx_http_stub_status_module
+## ngx_http_stub_status_module
 
-Модуль ngx_http_stub_status_module предоставляет доступ к базовой информации о состоянии сервера.
+The ngx_http_stub_status_module provides access to basic server status information.
 
-По умолчанию этот модуль не собирается, его сборку необходимо разрешить с помощью конфигурационного параметра *--with-http_stub_status_module*.
+This module is not built by default, its building must be enabled using the configuration parameter *--with-http_stub_status_module*.
 
-Пример конфигурации:
+An example of the configuration:
 ```
 location = /basic_status {
     stub_status;
 }
 ```
 
-В данной конфигурации создаётся простая веб-страница с основной информацией о состоянии, которая может выглядеть следующим образом:
+In this configuration, a simple web page is created with basic status information, which might look as follows:
 ```
 Active connections: 291
 server accepts handled requests
