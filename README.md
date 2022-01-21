@@ -114,7 +114,7 @@ As a result of the sixth task you should provide a *docker-compose.yml* file and
 As the final goal of your little practice you have immediately chosen to write a docker image for your own web server, so first you need to deal with a ready-made docker image for the server.
 You chose a pretty simple **nginx**.
 
-**== Task==**
+**== Task ==**
 
 ##### Take the official docker image from **nginx** and download it using `docker pull`.
 ##### Check for the docker image with `docker images`
@@ -137,7 +137,7 @@ You chose a pretty simple **nginx**.
 
 Docker image and container are ready. Now we can look into **nginx** configuration and display page status.
 
-**== Task==**
+**== Task ==**
 
 ##### Read the *nginx.conf* configuration file inside the docker image with the *exec* command
 ##### Create a *nginx.conf* file on a local machine
@@ -161,19 +161,19 @@ Docker image and container are ready. Now we can look into **nginx** configurati
 
 It's time to take a little break from the docker to prepare for the last stage. It's time to write your own server.
 
-**== Task==**
+**== Task ==**
 
 ##### Write a mini server in **C** and **FastCgi** that will return a simple page saying `Hello World!`
 ##### Run the written mini server via *spawn-cgi* on port 8080
-##### Check that browser on *localhost:8080* returns the page you wrote
 ##### Write your own *nginx.conf* that will proxy all requests from port 81 to *127.0.0.1:8080*
+##### Check that browser on *localhost:81* returns the page you wrote
 ##### Put the *nginx.conf* file under *./nginx/nginx.conf* (you will need this later)
 
 ## Part 4. Your own docker
 
 Now everything is ready. You can start writing the docker image for the created server.
 
-**== Task==**
+**== Task ==**
 
 *When writing a docker image avoid multiple calls of RUN instructions*
 
@@ -196,7 +196,7 @@ _**nginx** can be installed inside the docker itself, or you can use a ready-mad
 
 Once you've written the container, it's never a bad idea to check it for security.
 
-**== Task==**
+**== Task ==**
 
 ##### Check the container from the previous task with `dockle [container_id|container_name]`
 ##### Fix the container so that there are no errors or warnings when checking with **dockle**
@@ -207,7 +207,7 @@ Once you've written the container, it's never a bad idea to check it for securit
 There, you've finished your warm-up. Wait a minute though...
 Why not try experimenting with deploying a project consisting of several docker images at once?
 
-**== Task==**
+**== Task ==**
 
 ##### Write a *docker-compose.yml* file, using which:
 ##### 1) Start the docker container from [Part 5](#part-5-dockle) _(it must work on local network, i.e., you don't need to use **EXPOSE** instruction and map ports to local machine)_
