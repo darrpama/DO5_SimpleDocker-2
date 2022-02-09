@@ -22,6 +22,8 @@ The russian version of the task can be found in the repository.
 
 ## Chapter I
 
+![simple_docker](misc/images/simple_docker.png)
+
 Planet Earth, Atlantic Ocean, Her Majesty's Ship "Hood", heading to London, UK, nowadays.
 
 You never liked moving. A lot of fuss, little action. But you managed to find a great job to delve into DevOps world in Foggy Albion.
