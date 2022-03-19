@@ -131,7 +131,7 @@ You chose a pretty simple **nginx**.
 ##### Check that the image has stopped with `docker ps`
 ##### Run docker with mapped ports 80 and 443 on the local machine with *run* command
 ##### Check that the **nginx** start page is available in the browser at *localhost:80*
-##### Restart docker image with `docker restart [image_id|repository]`
+##### Restart docker container with `docker restart [container_id|container_name]`
 ##### Check in any way that the container is running
 
 - Add the following screenshots to the report:
