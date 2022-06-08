@@ -153,8 +153,10 @@ Docker image and container are ready. Now we can look into **nginx** configurati
 ##### Export the container to a *container.tar* file with the *export* command
 ##### Stop the container
 ##### Delete the image with `docker rmi [image_id|repository]`without removing the container first
+##### Delete stopped container
 ##### Import the container back using the *import*command
 ##### Run the imported container
+##### Check that *localhost:80/status* returns the **nginx** server status page
 
 - Add the following screenshots to the report:
     - the call and output of all commands used in this part of the task;
@@ -199,12 +201,12 @@ _**nginx** can be installed inside the docker itself, or you can use a ready-mad
 
 ## Part 5. **Dockle**
 
-Once you've written the container, it's never a bad idea to check it for security.
+Once you've written the image, it's never a bad idea to check it for security.
 
 **== Task ==**
 
-##### Check the container from the previous task with `dockle [container_id|container_name]`
-##### Fix the container so that there are no errors or warnings when checking with **dockle**
+##### Check the image from the previous task with `dockle [image_id|repository]`
+##### Fix the image so that there are no errors or warnings when checking with **dockle**
 
 
 ## Part 6. Basic **Docker Compose**
