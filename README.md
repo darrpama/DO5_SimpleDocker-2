@@ -98,9 +98,9 @@ As a result of the work you should provide a report on the first two tasks. Each
 
 As a result of the third task you should provide source files for running the web server.
 
-As a result of the fourth and fifth tasks you should provide docker images.
+As a result of the fourth and fifth tasks you should provide dockerfiles.
 
-As a result of the sixth task you should provide a *docker-compose.yml* file and the docker images needed to run it (if not provided earlier).
+As a result of the sixth task you should provide a *docker-compose.yml* file and the dockerfiles needed to run it (if not provided earlier).
 
 - A report with a .md extension must be uploaded to the repository, in the src folder.
 - All parts of the task should be highlighted in the report as level 2 headings.
@@ -109,8 +109,7 @@ As a result of the sixth task you should provide a *docker-compose.yml* file and
 - All screenshots must be cropped so that only the relevant part of the screen is shown.
 - It’s allowed to have several task points shown in one screenshot, but they must all be described in the caption.
 - Source files for running the web server from the third task should be uploaded to the repository, in the src/server folder.
-- Docker images from the fourth and fifth tasks should be uploaded to the repository, in the src folder.
-
+- Dockerfiles from the fourth and fifth tasks should be uploaded to the repository, in the src folder.
 - *docker-compose.yml* from the sixth task should be uploaded to the repository, in the src folder.
 - Be prepared to demonstrate your work if necessary.
 
@@ -194,7 +193,7 @@ _**nginx** can be installed inside the docker itself, or you can use a ready-mad
 ##### Check with `docker images` that everything is built correctly
 ##### Run the built docker image by mapping port 81 to 80 on the local machine and mapping the *./nginx* folder inside the container to the address where the **nginx** configuration files are located (see [Part 2](#part-2-operations-with-container))
 ##### Check that the page of the written mini server is available on localhost:80
-##### Add proxying of */status* page in *./nginx/nginx.conf* to return the **nginx**server status
+##### Add proxying of */status* page in *./nginx/nginx.conf* to return the **nginx** Яserver status
 ##### Restart docker image
 *If everything is done correctly, after saving the file and restarting the container, the configuration file inside the docker image should update itself without any extra steps
 ##### Check that *localhost:80/status* now returns a page with **nginx** status
