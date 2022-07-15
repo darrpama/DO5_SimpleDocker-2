@@ -170,7 +170,7 @@ It's time to take a little break from the docker to prepare for the last stage. 
 **== Task ==**
 
 ##### Write a mini server in **C** and **FastCgi** that will return a simple page saying `Hello World!`
-##### Run the written mini server via *spawn-cgi* on port 8080
+##### Run the written mini server via *spawn-fcgi* on port 8080
 ##### Write your own *nginx.conf* that will proxy all requests from port 81 to *127.0.0.1:8080*
 ##### Check that browser on *localhost:81* returns the page you wrote
 ##### Put the *nginx.conf* file under *./nginx/nginx.conf* (you will need this later)
