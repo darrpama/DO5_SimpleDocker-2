@@ -143,7 +143,7 @@ Docker image and container are ready. Now we can look into **nginx** configurati
 
 **== Task ==**
 
-##### Read the *nginx.conf* configuration file inside the docker image with the *exec* command
+##### Read the *nginx.conf* configuration file inside the docker container with the *exec* command
 ##### Create a *nginx.conf* file on a local machine
 ##### Configure it on the */status* path to return the **nginx** server status page
 ##### Copy the created *nginx.conf* file inside the docker image using the `docker cp` command
