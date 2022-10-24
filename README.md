@@ -136,6 +136,8 @@ You chose a pretty simple **nginx**.
 - Add the following screenshots to the report:
     - the call and output of all commands used in this part of the task;
     - **nginx** start page at *localhost:80* (address must be shown).
+    
+*Note:* **Don't upload heavy files (>10 mb) to git.**
 
 ## Part 2. Operations with container
 
