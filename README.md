@@ -1,8 +1,5 @@
 # Simple Docker
 
-> При старте работы над проектом просим вас постараться хронометрировать время работы над проектом.
-> По завершении работы над проектом просим вас ответить на два вопроса [в этом опросе](https://forms.gle/6qcQSqdQnf7JD1iEA)
-
 Introduction to docker. Developing a simple docker image for your own server.
 
 The russian version of the task can be found in the repository.
@@ -224,3 +221,6 @@ Why not try experimenting with deploying a project consisting of several docker 
 ##### Stop all running containers
 ##### Build and run the project with the `docker-compose build` and `docker-compose up` commands
 ##### Check that the browser returns the page you wrote on *localhost:80* as before
+
+
+💡 [Tap here](https://forms.yandex.ru/u/6357f52902848f350b554d5f/) **to leave your feedback on the project**. Pedago Team really tries to make your educational experience better.
