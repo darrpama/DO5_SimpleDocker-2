@@ -192,7 +192,7 @@ _**nginx** can be installed inside the docker itself, or you can use a ready-mad
 ##### Check with `docker images` that everything is built correctly
 ##### Run the built docker image by mapping port 81 to 80 on the local machine and mapping the *./nginx* folder inside the container to the address where the **nginx** configuration files are located (see [Part 2](#part-2-operations-with-container))
 ##### Check that the page of the written mini server is available on localhost:80
-##### Add proxying of */status* page in *./nginx/nginx.conf* to return the **nginx** Яserver status
+##### Add proxying of */status* page in *./nginx/nginx.conf* to return the **nginx** server status
 ##### Restart docker image
 *If everything is done correctly, after saving the file and restarting the container, the configuration file inside the docker image should update itself without any extra steps
 ##### Check that *localhost:80/status* now returns a page with **nginx** status
