@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# mkdir nginx
+# cp ../nginx/nginx.conf nginx/nginx.conf
+# cp ../server/server.c server.c
+# cp ../server/40-fast-fcgi.sh 40-fast-fcgi.sh
+
+docker build -t part3 .
+
+# rm -rf nginx
+# rm server.c
+# rm 40-fast-fcgi.sh
+
+docker run -d -p 81:81 part3
+
+echo -e "\nЖдем запуска контейнера\n"
+
+i=1
+sp="/-\|"
+echo -n ' '
+printf "\bPlease wait -  "
+for((a=0; a < 101; a++))
+do
+    printf "\b${sp:i++%${#sp}:1}"
+    sleep 0.05
+done
+echo -e "\n"
+
+echo -e "\nзапрос на 127.0.0.1:81\n"
+curl 127.0.0.1:81
+echo -e "\n"
+echo -e "\nзапрос на 127.0.0.1:81/status\n"
+curl 127.0.0.1:81/status
+echo -e "\n"
